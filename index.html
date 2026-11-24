@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#243b70">
+<title>Study Space</title>
+<style>
+:root{--navy:#243b70;--blue:#4969b1;--bg:#f4f6fb;--ink:#1d2740;--muted:#68738c;--line:#e4e8f1;--white:#fff;--green:#16845b;--red:#c44b58}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+button,input,textarea,select{font:inherit}button{cursor:pointer}
+.app{display:flex;min-height:100vh}.sidebar{width:250px;background:var(--navy);color:white;padding:24px 16px;flex-shrink:0}.brand{font-size:22px;font-weight:800;padding:0 12px 22px}.brand span{color:#a9c2ff}.nav-label{font-size:11px;letter-spacing:1.3px;color:#b9c8ec;padding:12px}.nav{display:flex;align-items:center;gap:12px;padding:12px;border:0;background:transparent;color:#e9efff;width:100%;text-align:left;border-radius:12px;margin:3px 0}.nav:hover,.nav.active{background:#ffffff20;color:white}.nav .emoji{font-size:20px;width:27px;text-align:center}.main{flex:1;min-width:0;padding:28px clamp(16px,4vw,48px);max-width:1500px;margin:auto;width:100%}.top{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:26px}.eyebrow{color:var(--muted);font-size:13px}.top h1{font-size:clamp(24px,3vw,32px);margin:3px 0}.pill{background:#e8edfa;color:var(--navy);padding:8px 12px;border-radius:999px;font-size:13px;font-weight:650}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}.card{background:var(--white);border:1px solid var(--line);border-radius:17px;padding:18px;box-shadow:0 4px 18px #1d274008}.subject-card{cursor:pointer;transition:.15s}.subject-card:hover{transform:translateY(-2px);border-color:#aebee7}.subject-head{display:flex;align-items:center;gap:12px}.subject-icon{font-size:27px;background:#eef2ff;border-radius:12px;width:48px;height:48px;display:grid;place-items:center}.subject-card h3{margin:0;font-size:17px}.subject-card p{color:var(--muted);font-size:13px;margin:2px 0}.meter{height:7px;background:#edf0f6;border-radius:9px;overflow:hidden;margin:16px 0 7px}.meter span{display:block;height:100%;background:var(--blue);border-radius:9px}.smallrow{display:flex;justify-content:space-between;color:var(--muted);font-size:12px}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:22px}.stat strong{font-size:27px;display:block}.stat span{color:var(--muted);font-size:13px}.subject-title{display:flex;align-items:center;gap:14px;margin-bottom:20px}.subject-title .subject-icon{width:58px;height:58px;font-size:32px}.subject-title h1{margin:0}.tabs{display:flex;gap:8px;overflow:auto;border-bottom:1px solid var(--line);margin-bottom:18px}.tab{border:0;background:none;padding:12px 14px;color:var(--muted);white-space:nowrap;border-bottom:3px solid transparent}.tab.active{color:var(--navy);border-color:var(--blue);font-weight:700}.section-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:12px 0 16px}.section-head h2{font-size:19px;margin:0}.btn{border:0;background:var(--blue);color:white;border-radius:10px;padding:10px 14px;font-weight:650}.btn.secondary{background:#edf1fb;color:var(--navy)}.btn.danger{background:#fff0f1;color:var(--red)}.btn:focus,input:focus,textarea:focus,select:focus{outline:2px solid #9eb5f3;outline-offset:1px}
+.assignment{display:flex;align-items:flex-start;gap:12px;padding:14px 0;border-bottom:1px solid var(--line)}.assignment:last-child{border:0}.check{width:20px;height:20px;margin-top:3px;accent-color:var(--green)}.assignment-body{flex:1;min-width:0}.assignment-title{font-weight:700;overflow-wrap:anywhere}.assignment.done .assignment-title{text-decoration:line-through;color:#8992a5}.meta{font-size:12px;color:var(--muted);margin-top:4px}.overdue{color:var(--red)}.actions{display:flex;gap:6px}.iconbtn{border:0;background:#f0f2f8;color:#4b5873;border-radius:8px;padding:7px 9px}.empty{padding:34px 14px;text-align:center;color:var(--muted)}textarea{width:100%;min-height:320px;border:1px solid var(--line);border-radius:13px;padding:16px;resize:vertical;background:white;color:var(--ink);line-height:1.6}input,select{border:1px solid var(--line);border-radius:9px;padding:10px;background:white;color:var(--ink);width:100%}.formrow{display:grid;grid-template-columns:1fr 180px;gap:10px;margin-bottom:12px}.pdf-item{display:flex;align-items:center;gap:12px;padding:13px 0;border-bottom:1px solid var(--line)}.pdf-icon{font-size:23px}.pdf-item .fileinfo{flex:1;min-width:0}.fileinfo strong{display:block;overflow-wrap:anywhere}.fileinfo small{color:var(--muted)}.status{font-size:12px;color:var(--green);min-height:18px}.hidden{display:none!important}.back{border:0;background:transparent;color:var(--blue);font-weight:700;padding:0;margin-bottom:12px}.modal-back{position:fixed;inset:0;background:#10182b80;display:grid;place-items:center;padding:16px;z-index:5}.modal{background:white;border-radius:16px;padding:22px;width:min(100%,460px);box-shadow:0 20px 70px #0003}.modal h2{margin:0 0 16px}.modal label{display:block;font-size:13px;font-weight:650;margin:10px 0 5px}.modal-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:16px}.bottomnav{display:none}
+@media(max-width:900px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.sidebar{width:215px}}
+@media(max-width:640px){.app{display:block}.sidebar{display:none}.main{padding:20px 14px 90px}.top{margin-bottom:20px}.grid{grid-template-columns:1fr 1fr;gap:10px}.subject-card{padding:13px}.subject-icon{width:40px;height:40px;font-size:22px}.subject-card h3{font-size:14px}.subject-card p{font-size:11px}.stats{gap:8px}.stat{padding:13px}.stat strong{font-size:22px}.stat span{font-size:11px}.bottomnav{display:flex;position:fixed;bottom:0;left:0;right:0;background:white;border-top:1px solid var(--line);padding:7px 5px calc(7px + env(safe-area-inset-bottom));z-index:4;justify-content:space-around}.bottomnav button{border:0;background:transparent;color:var(--muted);font-size:11px;display:grid;justify-items:center;gap:2px;padding:3px}.bottomnav button span{font-size:19px}.formrow{grid-template-columns:1fr}.section-head{align-items:flex-start}.actions{flex-direction:column}.assignment{gap:8px}.pill{font-size:11px}.subject-title h1{font-size:23px}}
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="sidebar">
+  <div class="brand">Study<span>Space</span> ✦</div>
+  <div class="nav-label">WORKSPACE</div>
+  <button class="nav active" data-home><span class="emoji">⌂</span> Dashboard</button>
+  <div class="nav-label">YOUR SUBJECTS</div>
+  <div id="sideSubjects"></div>
+</aside>
+<main class="main">
+  <div class="top"><div><div class="eyebrow">YOUR PERSONAL LEARNING HUB</div><h1 id="pageTitle">Dashboard</h1></div><div class="pill" id="today"></div></div>
+  <section id="dashboard">
+    <div class="stats">
+      <div class="card stat"><strong id="totalTasks">0</strong><span>Total assignments</span></div>
+      <div class="card stat"><strong id="pendingTasks">0</strong><span>Pending assignments</span></div>
+      <div class="card stat"><strong id="doneTasks">0%</strong><span>Overall completion</span></div>
+    </div>
+    <div class="section-head"><h2>Your subjects</h2><span class="eyebrow">Choose a subject to get started</span></div>
+    <div class="grid" id="subjectGrid"></div>
+    <div class="card" style="margin-top:18px"><div class="section-head"><h2>Upcoming deadlines</h2></div><div id="upcoming"></div></div>
+  </section>
+  <section id="subjectView" class="hidden">
+    <button class="back" id="backBtn">← Dashboard</button>
+    <div class="subject-title"><div class="subject-icon" id="subjectEmoji"></div><div><h1 id="subjectName"></h1><div class="eyebrow" id="subjectSummary"></div></div></div>
+    <div class="tabs">
+      <button class="tab active" data-tab="assignments">☑ Assignments</button>
+      <button class="tab" data-tab="notes">✎ Notes</button>
+      <button class="tab" data-tab="pdfs">▤ PDF library</button>
+      <button class="tab" data-tab="progress">◔ Progress</button>
+    </div>
+    <div id="tabContent"></div>
+  </section>
+</main>
+</div>
+<nav class="bottomnav">
+  <button data-home><span>⌂</span>Home</button>
+  <button data-subject="Geography"><span>🌍</span>Geography</button>
+  <button data-subject="Maths"><span>📐</span>Maths</button>
+  <button data-subject="Science"><span>🔬</span>Science</button>
+  <button data-subject="more"><span>☰</span>Subjects</button>
+</nav>
+<div id="modalRoot"></div>
+<script>
+const subjects=[
+ ['Geography','🌍'],['Civics','🏛️'],['History','📜'],['Maths','📐'],['Marathi','🪷'],['Hindi','📚'],['Science','🔬']
+];
+const KEY='studyspace_v1';
+let data=JSON.parse(localStorage.getItem(KEY)||'{}');
+subjects.forEach(([name])=>{if(!data[name])data[name]={assignments:[],notes:''};if(!data[name].assignments)data[name].assignments=[];});
+let current=null,tab='assignments';
+const $=id=>document.getElementById(id);
+const save=()=>localStorage.setItem(KEY,JSON.stringify(data));
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const all=()=>subjects.flatMap(([s])=>data[s].assignments.map(a=>({...a,subject:s})));
+function init(){
+ $('today').textContent=new Date().toLocaleDateString(undefined,{weekday:'short',day:'numeric',month:'short'});
+ $('sideSubjects').innerHTML=subjects.map(([s,e])=>`<button class="nav" data-subject="${s}"><span class="emoji">${e}</span>${s}</button>`).join('');
+ document.querySelectorAll('[data-home]').forEach(b=>b.onclick=home);
+ document.querySelectorAll('[data-subject]').forEach(b=>b.onclick=()=>{let s=b.dataset.subject;if(s==='more'){showSubjectPicker();return;}openSubject(s)});
+ document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>switchTab(b.dataset.tab));
+ $('backBtn').onclick=home;renderDashboard();
+}
+function home(){
+ current=null;$('dashboard').classList.remove('hidden');$('subjectView').classList.add('hidden');$('pageTitle').textContent='Dashboard';
+ document.querySelectorAll('.nav').forEach(n=>n.classList.toggle('active',n.hasAttribute('data-home')));
+ renderDashboard();
+}
+function renderDashboard(){
+ let tasks=all(),done=tasks.filter(a=>a.done).length,pct=tasks.length?Math.round(done/tasks.length*100):0;
+ $('totalTasks').textContent=tasks.length;$('pendingTasks').textContent=tasks.length-done;$('doneTasks').textContent=pct+'%';
+ $('subjectGrid').innerHTML=subjects.map(([s,e])=>{let arr=data[s].assignments,d=arr.filter(a=>a.done).length,p=arr.length?Math.round(d/arr.length*100):0;return `<div class="card subject-card" data-card="${s}"><div class="subject-head"><div class="subject-icon">${e}</div><div><h3>${s}</h3><p>${arr.length} assignments</p></div></div><div class="meter"><span style="width:${p}%"></span></div><div class="smallrow"><span>${d} completed</span><b>${p}%</b></div></div>`}).join('');
+ document.querySelectorAll('[data-card]').forEach(b=>b.onclick=()=>openSubject(b.dataset.card));
+ let upcoming=tasks.filter(a=>!a.done&&a.due).sort((a,b)=>a.due.localeCompare(b.due)).slice(0,5);
+ $('upcoming').innerHTML=upcoming.length?upcoming.map(a=>`<div class="assignment"><div class="assignment-body"><div class="assignment-title">${esc(a.title)}</div><div class="meta">${a.subject} · Due ${formatDate(a.due)}</div></div></div>`).join(''):'<div class="empty">No upcoming deadlines. Add an assignment to see it here.</div>';
+}
+function formatDate(d){return d?new Date(d+'T00:00:00').toLocaleDateString(undefined,{day:'numeric',month:'short',year:'numeric'}):'No deadline'}
+function openSubject(s){
+ current=s;tab='assignments';$('dashboard').classList.add('hidden');$('subjectView').classList.remove('hidden');$('pageTitle').textContent=s;
+ $('subjectEmoji').textContent=subjects.find(x=>x[0]===s)[1];$('subjectName').textContent=s;updateSummary();
+ document.querySelectorAll('.nav').forEach(n=>n.classList.toggle('active',n.dataset.subject===s));
+ switchTab('assignments');
+}
+function updateSummary(){let a=data[current].assignments,d=a.filter(x=>x.done).length;$('subjectSummary').textContent=`${a.length} assignments · ${d} completed`;}
+function switchTab(t){tab=t;document.querySelectorAll('.tab').forEach(b=>b.classList.toggle('active',b.dataset.tab===t));renderTab();}
+function renderTab(){
+ const root=$('tabContent'),sub=data[current];
+ if(tab==='assignments'){
+ let arr=sub.assignments;
+ root.innerHTML=`<div class="section-head"><h2>Assignments</h2><button class="btn" id="addTask">＋ Add assignment</button></div>${arr.length?arr.map(a=>`<div class="assignment ${a.done?'done':''}"><input class="check" type="checkbox" data-check="${a.id}" ${a.done?'checked':''} aria-label="Mark complete"><div class="assignment-body"><div class="assignment-title">${esc(a.title)}</div><div class="meta ${!a.done&&a.due&&a.due<new Date().toISOString().slice(0,10)?'overdue':''}">${a.due?'Due '+formatDate(a.due):'No deadline'}${a.details?' · '+esc(a.details):''}</div></div><div class="actions"><button class="iconbtn" data-edit="${a.id}" aria-label="Edit">✎</button><button class="iconbtn" data-delete="${a.id}" aria-label="Delete">×</button></div></div>`).join(''):'<div class="empty">No assignments yet. Add your first task.</div>'}`;
+ $('addTask').onclick=()=>taskModal();
+ root.querySelectorAll('[data-check]').forEach(el=>el.onchange=()=>{let a=sub.assignments.find(x=>x.id===el.dataset.check);a.done=el.checked;save();renderTab();updateSummary();});
+ root.querySelectorAll('[data-edit]').forEach(el=>el.onclick=()=>taskModal(el.dataset.edit));
+ root.querySelectorAll('[data-delete]').forEach(el=>el.onclick=()=>{if(confirm('Delete this assignment?')){sub.assignments=sub.assignments.filter(a=>a.id!==el.dataset.delete);save();renderTab();updateSummary();}});
+ }else if(tab==='notes'){
+ root.innerHTML=`<div class="section-head"><h2>${current} notes</h2><span class="status" id="saveStatus">Saved</span></div><textarea id="notes" placeholder="Write your ${current} notes here...">${esc(sub.notes)}</textarea><div class="meta">Your notes save automatically on this device as you type.</div>`;
+ let timer; $('notes').oninput=e=>{sub.notes=e.target.value;$('saveStatus').textContent='Saving…';clearTimeout(timer);timer=setTimeout(()=>{save();$('saveStatus').textContent='Saved';},250);};
+ }else if(tab==='pdfs'){
+ root.innerHTML=`<div class="section-head"><h2>${current} PDFs</h2><label class="btn" for="pdfUpload">＋ Add PDF</label><input class="hidden" type="file" id="pdfUpload" accept="application/pdf,.pdf" multiple></div><div id="pdfList"><div class="empty">Loading your PDF library…</div></div><div class="meta">PDFs are stored in this browser on this device. Large files use local browser storage.</div>`;
+ $('pdfUpload').onchange=async e=>{for(const f of e.target.files){if(f.type!=='application/pdf'&&!f.name.toLowerCase().endsWith('.pdf'))continue;await pdfPut({id:crypto.randomUUID(),subject:current,name:f.name,size:f.size,blob:f});}renderPdfList();e.target.value='';};
+ renderPdfList();
+ }else{
+ let arr=sub.assignments,d=arr.filter(a=>a.done).length,p=arr.length?Math.round(d/arr.length*100):0;
+ root.innerHTML=`<div class="card"><div class="section-head"><h2>${current} progress</h2><b>${p}%</b></div><div class="meter"><span style="width:${p}%"></span></div><div class="stats" style="margin:16px 0 0"><div class="card stat"><strong>${arr.length}</strong><span>Total</span></div><div class="card stat"><strong>${d}</strong><span>Completed</span></div><div class="card stat"><strong>${arr.length-d}</strong><span>Remaining</span></div></div></div>`;
+ }
+}
+function taskModal(id){
+ let a=id?data[current].assignments.find(x=>x.id===id):null;
+ $('modalRoot').innerHTML=`<div class="modal-back" id="modalBack"><div class="modal"><h2>${a?'Edit':'Add'} assignment</h2><form id="taskForm"><label>Assignment title</label><input id="taskTitle" required maxlength="120" placeholder="e.g. Chapter 3 exercise" value="${esc(a?.title||'')}"><label>Deadline</label><input id="taskDue" type="date" value="${a?.due||''}"><label>Extra details (optional)</label><input id="taskDetails" maxlength="180" placeholder="Pages, questions, or instructions" value="${esc(a?.details||'')}"><div class="modal-actions"><button type="button" class="btn secondary" id="cancelModal">Cancel</button><button class="btn" type="submit">Save assignment</button></div></form></div></div>`;
+ $('cancelModal').onclick=closeModal;$('modalBack').onclick=e=>{if(e.target.id==='modalBack')closeModal()};
+ $('taskForm').onsubmit=e=>{e.preventDefault();let obj={id:a?.id||crypto.randomUUID(),title:$('taskTitle').value.trim(),due:$('taskDue').value,details:$('taskDetails').value.trim(),done:a?.done||false};if(!obj.title)return;if(a)Object.assign(a,obj);else data[current].assignments.unshift(obj);save();closeModal();renderTab();updateSummary();};
+ $('taskTitle').focus();
+}
+function closeModal(){$('modalRoot').innerHTML='';}
+function showSubjectPicker(){let s=prompt('Enter a subject name: '+subjects.map(x=>x[0]).join(', '));if(subjects.some(x=>x[0].toLowerCase()===String(s).toLowerCase()))openSubject(subjects.find(x=>x[0].toLowerCase()===s.toLowerCase())[0]);}
+let dbPromise;
+function pdfDB(){if(dbPromise)return dbPromise;dbPromise=new Promise((resolve,reject)=>{let req=indexedDB.open('StudySpacePDFs',1);req.onupgradeneeded=()=>req.result.createObjectStore('pdfs',{keyPath:'id'});req.onsuccess=()=>resolve(req.result);req.onerror=()=>reject(req.error);});return dbPromise;}
+async function pdfPut(v){let db=await pdfDB();return new Promise((res,rej)=>{let tx=db.transaction('pdfs','readwrite');tx.objectStore('pdfs').put(v);tx.oncomplete=res;tx.onerror=()=>rej(tx.error);});}
+async function pdfGetAll(){let db=await pdfDB();return new Promise((res,rej)=>{let r=db.transaction('pdfs').objectStore('pdfs').getAll();r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error);});}
+async function pdfDelete(id){let db=await pdfDB();return new Promise((res,rej)=>{let tx=db.transaction('pdfs','readwrite');tx.objectStore('pdfs').delete(id);tx.oncomplete=res;tx.onerror=()=>rej(tx.error);});}
+async function renderPdfList(){let root=$('pdfList');try{let files=(await pdfGetAll()).filter(f=>f.subject===current);root.innerHTML=files.length?files.map(f=>`<div class="pdf-item"><div class="pdf-icon">📄</div><div class="fileinfo"><strong>${esc(f.name)}</strong><small>${(f.size/1024/1024).toFixed(2)} MB</small></div><button class="iconbtn" data-openpdf="${f.id}">Open</button><button class="iconbtn" data-delpdf="${f.id}">×</button></div>`).join(''):'<div class="empty">No PDFs saved for this subject yet.</div>';
+ root.querySelectorAll('[data-openpdf]').forEach(b=>b.onclick=async()=>{let f=(await pdfGetAll()).find(x=>x.id===b.dataset.openpdf);if(f){let url=URL.createObjectURL(f.blob);let w=window.open(url,'_blank');if(!w)alert('Allow pop-ups to open the PDF.');setTimeout(()=>URL.revokeObjectURL(url),60000);}});
+ root.querySelectorAll('[data-delpdf]').forEach(b=>b.onclick=async()=>{if(confirm('Remove this PDF from your library?')){await pdfDelete(b.dataset.delpdf);renderPdfList();}});
+ }catch(e){root.innerHTML='<div class="empty">PDF storage is not available in this browser.</div>';}}
+init();
+</script>
+</body>
+</html>
